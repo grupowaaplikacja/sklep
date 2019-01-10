@@ -1,4 +1,5 @@
 from model.user import User
+import User from model.User
 
 class Repo:
     db = ""
@@ -6,4 +7,4 @@ class Repo:
     def __init__(self,db)
         self.db = db
 
-    # nie chce mi sie
+    
