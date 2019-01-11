@@ -6,6 +6,7 @@ project_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///{}".format(os.path.join(project_dir,"database.db"))
 db = SQLAlchemy(app)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,6 +27,7 @@ class User(db.Model):
         self.last_name = last_name
         self.phone = phone
         self.role = role
+		
 
 
 
