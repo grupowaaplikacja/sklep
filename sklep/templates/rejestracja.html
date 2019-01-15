@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+<div class="w3-container w3-light-grey w3-padding-16">
+	<h2>Rejestracja</h2>
+	<form action="{{url_for('tworzenie_konta')}}" method="post">
+		<div class="w3-border">
+			<p><input class="w3-input w3-border" type="text" placeholder="Imie" name="imie" required></p>
+			<p><input class="w3-input w3-border" type="text" placeholder="Nazwisko" name="nazwisko" required></p>
+			<p><input class="w3-input w3-border" type="text" placeholder="Adres email" name="email" required></p>
+			<p><input class="w3-input w3-border" type="text" placeholder="Telefon" name="telefon" required></p>
+			<p><input class="w3-input w3-border" type="password" placeholder="Hasło" name="haslo1" required></p>
+			<p><input class="w3-input w3-border" type="password" placeholder="Powtórz hasło" name="haslo2" required></p>
+		</div>
+		<div class="w3-border">
+			<p>Adres 1</p>
+			<p><input class="w3-input w3-border" type="text" placeholder="Ulica" name="ulica1" required></p>
+			<p><input class="w3-input w3-border" type="text" placeholder="Nr. budynku/lokalu" name="budynek1" required></p>
+			<p><input class="w3-input w3-border" type="text" placeholder="Miasto" name="miasto1" required></p>
+			<p><input class="w3-input w3-border" type="text" placeholder="Kod pocztowy" name="kod_pocztowy1" required></p>
+		</div>
+		<div class="w3-border">
+			<p>Adres 2</p>
+			<p><input class="w3-input w3-border" type="text" placeholder="Ulica" name="ulica2" required></p>
+			<p><input class="w3-input w3-border" type="text" placeholder="Nr. budynku/lokalu" name="budynek2" required></p>
+			<p><input class="w3-input w3-border" type="text" placeholder="Miasto" name="miasto2" required></p>
+			<p><input class="w3-input w3-border" type="text" placeholder="Kod pocztowy" name="kod_pocztowy2" required></p>
+		</div>
+		<div class="w3-padding-16"><button type="submit" class="w3-button w3-padding w3-black w3-right">Załóż konto</button></div>
+	</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="w3-container w3-padding-24 w3-text-grey">
+	<div class="w3-large"> {{kategoria.upper()}}</div>
+	<div class="w3-right"> Liczba produktów: {{ile}} &nbsp &nbsp <a href="#">SORTUJ</a> </div>
+</div>
+
+<div class="3-cotainer">
+
+	{% for p in produkty %}
+	<div class="w3-container w3-left" style="width:25%">
+		<a href="{{url_for('produkt', kod=p.kod)}}"><img src="../static/images/{{p.kod}}.png" style="width:100%"></a>
+        <p><span class="w3-text-grey">{{p.nazwa}}</span><br><b>{{p.cena_zl}}.{{p.cena_gr}} zł</b></p>
+    </div>
+	{% endfor %}
+	
+	
+	<div style="clear:left"></div>
+</div>
+
+{% endblock %}

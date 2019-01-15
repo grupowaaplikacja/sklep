@@ -1,0 +1,47 @@
+{% extends 'admin_layout.html' %}
+
+ {% block main %}
+	<div class="w3-conatiner w3-padding"> 
+		<div class="w3-xlarge w3-text-grey w3-border-bottom">
+			DODAJ PRODUKT
+		</div>
+		<div class="w3-container w3-padding-16">
+			<form action="{{url_for('dodaj_produkt')}}" method="post" id="dodaj_produkt_form" enctype = "multipart/form-data">
+				<div class="w3-row-padding">
+					<div class="w3-half">
+						<p><input class="w3-input w3-border" type="text" placeholder="Nazwa" name="nazwa" required></p>
+						<p><select class="w3-select w3-border" style="height:40.17px;" name="kategoria" required>
+							<option value="" disabled selected> Kategoria</option>
+							<option value="auta, pojazdy">Auta, pojazdy</option>
+							<option value="samoloty, statki">Samoloty, statki</option>
+							<option value="puzzle">Puzzle</option>
+							<option value="gry_planszowe">Gry planszowe</option>
+							<option value="gry_karciane">Gry karciane</option>
+							<option value="gry_elektroniczne">Gry elektroniczne</option>
+							<option value="pluszaki_male">Pluszaki małe</option>
+							<option value="pluszaki_duze">Pluszaki duże</option>
+							<option value="pluszaki_xxl">Pluszaki XXL</option>
+							<option value="lalki">Lalki</option>
+							<option value="muzyczne">Muzyczne</option>
+							<option value="drewniane">Drewniane</option>
+							<option value="edukacyjne">Edukacyjne</option>
+						</select></p>
+						<p><input class="w3-input w3-border" type="text" placeholder="Cena" name="cena" required></p>
+						<p><input class="w3-input w3-border" type="text" placeholder="Ilość" name="ilosc" required></p>
+						<p><input class="w3-input w3-border" type="text" placeholder="Kod" name="kod" required></p>
+						<p><input class="w3-input w3-border" type="text" placeholder="Min. wiek" name="min_wiek" required></p>
+					</div>
+					<div class="w3-half">
+						<div class="w3-padding">
+							<p class="w3-text-grey w3-large w3-border-bottom">Wybierz zdjęcie</p>
+							<p><input type="file" name="zdjecie" required></p>
+						</div>
+					</div>
+				</div>
+				<div style="padding-left:16px; padding-right:16px;">
+					<textarea style="width:100%; resize:vertical;" rows="8" name="opis" placeholder=" Opis.." required form="dodaj_produkt_form"></textarea></div>
+				<div class="w3-padding"><button type="submit" class="w3-button w3-black w3-right w3-large w3-padding">Dodaj produkt</button></div>
+			</form>
+		</div>
+	</div>
+ {% endblock %}

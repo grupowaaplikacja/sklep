@@ -1,0 +1,41 @@
+{% extends 'admin_layout.html' %}
+
+ {% block main %}
+	<div class="w3-conatiner w3-padding"> 
+		<div class="w3-xlarge w3-text-grey w3-border-bottom">
+			LISTA PRODUKTÓW
+		</div>
+		<div class="w3-padding-16">
+			<div class="w3-padding">
+				<ol class="w3-ul w3-card w3-hoverable">
+					<li class=" w3-bar">
+					<div class="w3-bar-item">
+						<span class="w3-block w3-left" style="width:60px"><b>Id.</b> </span>
+						<span class="w3-block w3-left" style="width:200px"><b>Nazwa</b> </span>
+						<span class="w3-block w3-left" style="width:180px"><b>Kategoria</b> </span>
+						<span class="w3-block w3-left w3-center" style="width:80px"><b>Cena</b> </span>
+						<span class="w3-block w3-left w3-center" style="width:145px"><b>L. sztuk</b> </span>
+						<span class="w3-block w3-left" style="width:90px"><b>Kod</b> </span>
+					</div>
+					</li>
+				  {% for p in lista %}
+					<li class=" w3-bar">
+						<div class="w3-right">
+						<a href="#" class="w3-xlarge"><i class="fa fa-pencil"></i></a> </span><span>&nbsp </span>
+						<a href="#" class="w3-xlarge"><i class="fa fa-times"></i></a></span>
+						</div>
+						<div class="w3-bar-item">
+							<span class="w3-block w3-left" style="width:60px">{{p.id}} </span>
+							<span class="w3-block w3-left" style="width:200px">{{p.nazwa}} </span>
+							<span class="w3-block w3-left" style="width:180px">{{p.kategoria}} </span>
+							<span class="w3-block w3-left w3-right-align" style="width:80px">{{p.cena_zl}}.{{p.cena_gr}} zł</span>
+							<span class="w3-block w3-left w3-center" style="width:145px">{{p.il_sztuk}} </span>
+							<span class="w3-block w3-left" style="width:90px">{{p.kod}} </span>
+						</div>
+					</li>
+				  {% endfor %}
+				</ol>
+			</div>
+		</div>
+	</div>
+ {% endblock %}

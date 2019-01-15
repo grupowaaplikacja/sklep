@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<title>{{config.SITE_NAME}}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.w3-sidebar a {font-family: "Roboto", sans-serif}
+body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
+</style>
+<body class="w3-content" style="max-width:1200px">
+
+
+<nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px; margin-top:128px;">
+	<div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+		<a href="{{url_for('admin_dodaj_produkt')}}" class="w3-bar-item w3-button">Dodaj produkt</a>
+		<a href="{{url_for('admin_dodaj_administratora')}}" class="w3-bar-item w3-button">Dodaj administratora</a>
+		<a href="{{url_for('admin_lista_produktow')}}" class="w3-bar-item w3-button">Lista produktów</a>
+		<a href="{{url_for('admin_lista_klientow')}}" class="w3-bar-item w3-button">Lista klientów</a>
+		<a href="{{url_for('admin_zamowienia_biezace')}}" class="w3-bar-item w3-button">Zamówienia bieżące</a>
+		<a href="{{url_for('admin_historia_zamowien')}}" class="w3-bar-item w3-button">Historia zamówień</a>
+		<a href="{{url_for('admin_raporty')}}" class="w3-bar-item w3-button">Raporty</a>
+		<a href="{{url_for('admin_ustaw_bestsellery')}}" class="w3-bar-item w3-button">Ustaw bestsellery</a>
+		<a href="{{url_for('admin_pytania_klientow')}}" class="w3-bar-item w3-button">Pytania klientów</a>
+	</div>
+	<a href="{{url_for('index')}}" class="w3-bar-item w3-button w3-padding w3-dark-grey w3-large">Powrót do sklepu</a> 
+</nav>
+
+
+
+<div class="w3-main" style="margin-left:250px">
+	
+	<div>
+	  <header class="w3-container w3-large w3-padding-64">
+			<div class="w3-xxlarge w3-center w3-text-grey">Narzędzia administratora</div>
+	  </header>
+	</div>
+	
+  
+  {% block main %}{% endblock %}
+ 
+  
+
+  <div class="w3-black w3-center w3-padding-24">Narzędzia administratora</a></div>
+  
+  <!-- End page content -->
+</div>
+
+
+
+
+<script>
+// Accordion 
+function myAccFunc(name) {
+  var x = document.getElementById(name);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+
+</script>
+
+</body>
+</html>

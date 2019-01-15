@@ -1,0 +1,43 @@
+{% extends 'admin_layout.html' %}
+
+ {% block main %}
+	<div class="w3-conatiner w3-padding"> 
+		<div class="w3-xlarge w3-text-grey w3-border-bottom">
+			LISTA KLIENTÓW
+		</div>
+		<div class="w3-padding-16">
+			<div class="w3-padding">
+				<ol class="w3-ul w3-card w3-hoverable">
+					<li class=" w3-bar">
+					<div class="w3-bar-item">
+						<span class="w3-block w3-left" style="width:30px"><b>Id.</b> </span>
+						<span class="w3-block w3-left" style="width:60px"><b>Imie</b> </span>
+						<span class="w3-block w3-left" style="width:90px"><b>Nazwisko</b> </span>
+						<span class="w3-block w3-left" style="width:110px"><b>Telefon</b> </span>
+						<span class="w3-block w3-left" style="width:220px"><b>Email</b> </span>
+						<span class="w3-block w3-left" style="width:90px"><b>Miasto</b> </span>
+						<span class="w3-block w3-left" style="width:170px"><b>Adres</b> </span>
+					</div>
+					</li>
+				  {% for k in lista %}
+					<li class=" w3-bar">
+						<div class="w3-right">
+						<a href="#" class="w3-xlarge"><i class="fa fa-pencil"></i></a> </span><span>&nbsp </span>
+						<a href="#" class="w3-xlarge"><i class="fa fa-times"></i></a></span>
+						</div>
+						<div class="w3-bar-item">
+							<span class="w3-block w3-left" style="width:30px">{{k.id}} </span>
+							<span class="w3-block w3-left" style="width:60px">{{k.imie}} </span>
+							<span class="w3-block w3-left" style="width:90px">{{k.nazwisko}} </span>
+							<span class="w3-block w3-left" style="width:110px">{{k.telefon}}</span>
+							<span class="w3-block w3-left" style="width:220px">{{k.email}} </span>
+							<span class="w3-block w3-left" style="width:90px">{{k.miasto1}} </span>
+							<span class="w3-block w3-left" style="width:170px">{{k.adres1}} </span>
+						</div>
+					</li>
+				  {% endfor %}
+				</ol>
+			</div>
+		</div>
+	</div>
+ {% endblock %}

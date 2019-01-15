@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block main %}
+	<div class="w3-container w3-padding">
+		<div class="w3-xlarge w3-text-grey w3-border-bottom">MOJE KONTO</div>
+	
+		<div class="w3-bar-block w3-white w3-padding-16 w3-left" style="width:200px">
+			<div class="w3-text-grey">
+				<a href="{{url_for('konto_zamowienia')}}" class="w3-bar-item w3-button">Moje zamówienia</a>
+				<a href="{{url_for('konto_zwroty')}}" class="w3-bar-item w3-button">Moje zwroty</a>
+				<a href="{{url_for('konto_dane')}}" class="w3-bar-item w3-button">Moje dane</a>
+				<a href="{{url_for('konto_dane_adresowe')}}" class="w3-bar-item w3-button">Dane adresowe</a>
+				<a href="{{url_for('logging_out')}}" class="w3-bar-item w3-button">Wyloguj</a> 
+			</div>
+		</div>
+
+		<div class="w3-right w3-padding-16" style="width:718px">
+		{% block mainKonto%}
+		
+		{% endblock %}
+		</div>
+
+		
+	</div>
+{% endblock %}
