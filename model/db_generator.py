@@ -1,2 +1,2 @@
-from user import db
+from database import db
 db.create_all()
