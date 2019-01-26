@@ -39,7 +39,7 @@ class Product(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(100))
 	description = db.Column(db.String(100), nullable=True)
-	category = db.Column(db.String(3))
+	category = db.Column(db.String(20))
 	stock = db.Column(db.Integer)
 	price_per_unit=db.Column(db.Float)
 	unique_id=db.Column(db.Text)
@@ -50,6 +50,7 @@ class Product(db.Model):
 		self.stock = stock
 		self.price_per_unit=price_per_unit
 		self.description = description
+		self.unique_id=str(uuid.uuid4())
 	
 class Order(db.Model):
 	__tablename__='order'

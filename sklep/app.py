@@ -2,30 +2,19 @@ from flask import *
 import datetime
 import os
 import sqlite3
+from database.database import *
+import uuid
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
 app.config.update(dict(
     SECRET_KEY='bardzosekretnawartosc',
-    DATABASE=os.path.join(app.root_path, 'database/baza.db'),
+    DATABASE=os.path.join(app.root_path, 'database/database.db'),
     SITE_NAME='TOYS WORLD'
 ))
 
 
-def get_db():
-    """Funkcja tworząca połączenie z bazą danych"""
-    if not g.get('db'):
-        con = sqlite3.connect(app.config['DATABASE'])
-        con.row_factory = sqlite3.Row
-        g.db = con 
-    return g.db
-
-
-@app.teardown_appcontext
-def close_db(error):
-	if g.get('db'):
-		g.db.close()
 
 
 
@@ -42,33 +31,27 @@ def index():
 def wyszukaj():
 	nazwa = request.form['nazwa_szukana']
 	kategoria = request.form['kategoria_szukana']
-	db = get_db()
 	if(kategoria == 'wszystkie'):
-		kursor = db.execute("SELECT * FROM produkty WHERE nazwa=?", [nazwa])
+		produkty=Product.query.all()
 	else:
-		kursor = db.execute("SELECT * FROM produkty WHERE nazwa=? AND kategoria=?", [nazwa, kategoria])
-	produkty = kursor.fetchall()
+		produkty=Product.query.filter_by(category=kategoria).all()
 	ile = len(produkty)
 	return render_template('wyniki_wyszukiwania.html', nazwa=nazwa, kategoria=kategoria, ile=ile, produkty=produkty)
 	
 @app.route('/katalog/<kategoria>')
 def pokaz_kategorie(kategoria):
-	db = get_db()
 	if(kategoria == 'nowosci'):
-		kursor = db.execute("SELECT * FROM produkty ORDER BY id DESC")
+		produkty=Product.query.order_by(id.desc()).all()
 	else:
-		kursor = db.execute("SELECT * FROM produkty WHERE kategoria=?", [kategoria])
-	produkty = kursor.fetchall()
+		produkty=Product.query.filter_by(category=kategoria).all()
 	ile = len(produkty)
 	kat = kategoria.replace('_', ' ').upper()
 	return render_template('katalog.html', kategoria=kat, ile=ile, produkty=produkty)
 
 @app.route('/produkt/<kod>')
 def produkt(kod):
-	db = get_db()
 	t = (kod,)
-	kursor = db.execute('SELECT * FROM produkty WHERE kod=?;', t)
-	produkt = kursor.fetchone()
+	produkt = Product.query.filter_by(unique_id=t)
 	return render_template('produkt.html', produkt=produkt)
 	
 @app.route('/koszyk')
@@ -78,9 +61,8 @@ def koszyk():
 @app.route('/dodaj_subskrybenta', methods=['POST'])
 def dodaj_subskrybenta():
 	adres = request.form['adres_email_subskrybcji']
-	db = get_db()
-	db.execute('INSERT INTO subskrybenci VALUES(null,?)', [adres])
-	db.commit();
+	db.session.add(Newsletter(adres))
+	db.session.commit()
 	return redirect(url_for('index'))
 
 @app.route('/zapytanie', methods=['POST'])
@@ -89,9 +71,9 @@ def zapytanie():
 	email = request.form['email_zapytania']
 	temat = request.form['temat_zapytania']
 	wiadomosc = request.form['wiadomosc_zapytania']
-	db = get_db()
-	db.execute('INSERT INTO zapytania VALUES(null,?,?,?,?)', [imie, email, temat, wiadomosc])
-	db.commit();
+	#db = get_db()
+	#db.execute('INSERT INTO zapytania VALUES(null,?,?,?,?)', [imie, email, temat, wiadomosc])
+	#db.commit();
 	return redirect(url_for('index'))
 	
 
@@ -110,14 +92,12 @@ def login_page():
 def logging():
 	email_podany = request.form['email']
 	haslo_podane = request.form['haslo']
-	db = get_db()
-	kursor = db.execute('SELECT * FROM konta WHERE email=?', [email_podany])
-	konto = kursor.fetchone()
+	konto =User.query.filter_by(email=email_podany).first()
 	if(konto is not None):
-		haslo = konto['haslo']
-		rola = konto['rola']
+		haslo = konto.password
+		rola = konto.role
 		if(haslo == haslo_podane):
-			if(rola == 'A'):
+			if(rola == '1'):
 				session['admin_mode'] = True
 				session['zalogowany'] = True
 				return redirect(url_for('index'))
@@ -203,10 +183,8 @@ def dodaj_produkt():
 	zdjecie = request.files['zdjecie']
 	sciezka = 'static/images/'+kod+'.png'
 	zdjecie.save(sciezka)
-	db = get_db()
-	t = (nazwa,opis,kategoria,zl,gr,ilosc,kod,min_wiek,)
-	db.execute('INSERT INTO produkty VALUES(null,?,?,?,?,?,?,?,?)', t)
-	db.commit()
+	db.session.add(Product(nazwa, kategoria, ilosc, cena, opis))
+	db.session.commit()
 	return redirect(url_for('admin_dodaj_produkt'))
 	
 @app.route('/admin/dodaj_administratora')
@@ -219,18 +197,14 @@ def admin_dodaj_administratora():
 def admin_lista_produktow():
 	if(session.get('admin_mode') != True):
 		return redirect(url_for('index'))
-	db = get_db()
-	kursor = db.execute('SELECT * FROM produkty')
-	lista = kursor.fetchall()
+	lista=Product.query.all()
 	return render_template('admin_lista_produktow.html', lista=lista)
 	
 @app.route('/admin/lista_klientow')
 def admin_lista_klientow():
 	if(session.get('admin_mode') != True):
 		return redirect(url_for('index'))
-	db = get_db()
-	kursor = db.execute('SELECT * FROM konta WHERE rola="K"')
-	lista = kursor.fetchall()
+	lista = User.query.filter_by(role=0)
 	return render_template('admin_lista_klientow.html', lista=lista)
 
 @app.route('/admin/zamowienia_biezace')

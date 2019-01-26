@@ -2,7 +2,7 @@
 
 {% block main %}
 	
-	<div class="w3-container w3-jumbo w3-text-grey">{{produkt.nazwa}}</div>
+	<div class="w3-container w3-jumbo w3-text-grey">{{produkt.name}}</div>
 	
 	<div class="w3-cointainer w3-padding">
 		<div class="w3-left" style="width:40%">
@@ -11,11 +11,11 @@
 		<div class="w3-right w3-padding" style="width:60%">
 			<div class="w3-cointainer w3-light-grey w3-padding">
 				<div class="w3-padding w3-left" style="width:50%;"><b>Dostępność:</b></br><b>Produkt wysyłamy w:</b></div>
-				<div class="w3-padding">{{produkt.il_sztuk}}</br>24h</div>
+				<div class="w3-padding">{{produkt.stock}}</br>24h</div>
 			</div>
 			<div class="w3-container w3-padding">
 				<div class="w3-padding w3-left w3-xxlarge" style="width:50%;">Cena:</div>
-				<div class="w3-padding w3-xxlarge w3-text-dark-grey"><b>{{produkt.cena_zl}}.{{produkt.cena_gr}} zł</b></div>
+				<div class="w3-padding w3-xxlarge w3-text-dark-grey"><b>{{produkt.price_per_unit}} zł</b></div>
 			</div>
 			<div class="w3-container w3-padding">
 				<form>
@@ -28,7 +28,7 @@
 	
 	<div class="w3-container w3-padding-32">
 		<p class="w3-xlarge">OPIS</p>
-		<p>{{produkt.opis}}</p>
+		<p>{{produkt.description}}</p>
 		<p>Wiek: od {{produkt.min_wiek}} lat</p>
 	</div>
 	
